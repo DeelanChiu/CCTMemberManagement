@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      
+      function successCall(){
+          Logger.log("success")
+          console.log("success!");
+      }
+      
+      /*
+      runs insertNewPerson() from Code.gs on the form
+      */
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(successCall).insertNewPerson(formObject);
+      }
+
+    </script>
+    
+  </head>
+  
+  <font face="verdana">
+  Welcome! Please enter your first and last name :)
+  <br>
+  <body>
+    
+    <form id="personInfo" onsubmit="handleFormSubmit(this)">
+    <br>
+      First Name<br>
+      <input type="text" name="firstName" />
+      <br>
+      Last Name<br>
+      <input type="text" name="lastName" />
+      <br>
+      <input type="submit" value="Submit"/>
+    </form>
+    
+  </body>
+  
+  </font>
+</html>
+
+

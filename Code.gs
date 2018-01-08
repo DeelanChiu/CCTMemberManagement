@@ -19,8 +19,8 @@ function onOpen() {
 /*
 Shows the sign in sidebar by calling Sidebar.html
 */
-function showSidebar() { //get the form data
-  var html = HtmlService.createHtmlOutputFromFile('Sidebar')
+function showSignInSidebar() { //get the form data
+  var html = HtmlService.createHtmlOutputFromFile('SignInSidebar')
       .setTitle('Attendance')
       .setWidth(300);
   SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
@@ -62,34 +62,65 @@ function processNetId(form) {
   
     var data = sheet.getDataRange().getValues();
     var netIdRow = 6; //offset
-    var found = false;
     while (netIdRow < data.length && data[netIdRow][0] !== ""+netId){
         netIdRow = netIdRow + 1;
     }
-    ui.alert(netIdRow+" out of "+data.length+" with last column "+lastColumn);
+    //ui.alert(netIdRow+" out of "+data.length+" with last column "+lastColumn);
     
     if (netIdRow < data.length){
-        var cell = sheet.getRange(netIdRow+1, lastColumn);
-        cell.setValue("1");
+      var cell = sheet.getRange(netIdRow+1, lastColumn);
+      cell.setValue("1");
       
-        ui.alert("Thanks for signing in! Have fun :)");
-        //ui.alert(netIdRow+" out of "+data.length+" with last column "+lastColumn);
+      ui.alert("Thanks for signing in! Have fun :)");
+      //ui.alert(netIdRow+" out of "+data.length+" with last column "+lastColumn);
       
     } else {
          
-        ui.alert("Are you a new member / Is this your first time to a CCT event?");
+      var newMember = ui.alert("Hmm... we can't seem to be able to find you...",
+        "Are you a new member / Is this your first time to a CCT event?",
+                               ui.ButtonSet.YES_NO);
+      
+      if (newMember == ui.Button.YES) {
+        // User clicked "Yes".
+        //ui.alert('Welcome! Please enter your name :)');
+        
+        var personInfo = HtmlService.createHtmlOutputFromFile('NewPersonInfo')
+        .setWidth(450)
+        .setHeight(200);
+        
+        SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
+        .showModalDialog(personInfo, 'New Atendee Info');
+        
+      } else {
+        // User clicked "No" or X in the title bar.
+        ui.alert('Perhaps you have made a typo? Please re-enter your netID');
+      }  
+      
+      
       
     }
-  
-    
-  /*
-    for (var i = 0; i < data.length; i++) { //
-      Logger.log('Product name: ' + data[i][0]);
-      Logger.log('Product number: ' + data[i][1]);
-    } 
-    */
     
 }
+
+/*
+If the attendee isn't in the database, this function is called to put the person in the list
+
+*/
+function insertNewPerson(form){
+  var ui = SpreadsheetApp.getUi();
+  var firstName = form.firstName;
+  var lasttName = form.lastName;
+  ui.alert("name: "+firstName+" "+lasttName);
+  //var sheet = SpreadsheetApp.getActiveSheet();
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheets()[0];
+  
+  // This logs the value in the very last cell of this sheet
+  var lastRow = sheet.getLastRow();
+  var lastColumn = sheet.getLastColumn(); 
+}
+
 /*
 function processAdminPanel(form) {
   
