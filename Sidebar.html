@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <base target="_top">
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      
+      function successCall(){
+          Logger.log("success")
+          console.log("success!");
+      }
+      
+      /*
+      runs processNetId() from Code.gs on the form
+      */
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(successCall).processNetId(formObject);
+      }
+
+    </script>
+  </head>
+  
+  <div align="center">
+    <img src="http://cornellcluboftaiwan.com/resources/img/logos/cctlogo.gif" align="middle" height="250" width="200">
+  </div>
+  <br>
+  <br>
+  Hi! <b> Thank you </b> for coming :) <br>
+  Please enter your <b> netID  </b> and wait for the <b> confirmation message </b> that follows. <br>
+  Thank you, and enjoy! <br>
+  <br>
+  <body>
+      <form id="sidebarForm" onsubmit="handleFormSubmit(this)">
+          netID<br>
+          <input type="text" name="netID" />
+          <br>
+          <!-- <input type="button" value="Submit"/> -->
+      </form>
+  </body>
+</html>
