@@ -8,7 +8,7 @@ function onOpen() {
   var menu = SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
       .createMenu('Attendance System');
   
-  menu.addItem('Sign In sidebar', 'showSidebar')
+  menu.addItem('Sign In sidebar', 'showSignInSidebar')
       .addToUi();
   /*
   menu.addItem('Admin panel', 'showAdminPanel')
@@ -108,9 +108,10 @@ If the attendee isn't in the database, this function is called to put the person
 */
 function insertNewPerson(form){
   var ui = SpreadsheetApp.getUi();
+  var netId = form.netId;
   var firstName = form.firstName;
   var lasttName = form.lastName;
-  ui.alert("name: "+firstName+" "+lasttName);
+  //ui.alert("name: "+firstName+" "+lasttName);
   //var sheet = SpreadsheetApp.getActiveSheet();
   
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -118,7 +119,29 @@ function insertNewPerson(form){
   
   // This logs the value in the very last cell of this sheet
   var lastRow = sheet.getLastRow();
-  var lastColumn = sheet.getLastColumn(); 
+  var lastColumn = sheet.getLastColumn();
+  //ui.alert("col row: "+lastColumn+" "+lastRow);
+  var data = sheet.getDataRange().getValues();
+  //ui.alert("last: "+data[lastRow-1][0]+" "+data[lastRow-1][1]+" "+data[lastRow-1][2]);
+  //sheet.insertRowAfter(lastRow);
+  
+  //sheet.appendRow([netId, firstName, lastName]);
+  
+  //sheet.getRange(lastRow, 0).setValue(netId);
+  //sheet.getRange(lastRow, 1).setValue(firstName);
+  //sheet.getRange(lastRow, 2).setValue(lastName);
+  
+  var values = [
+   [netId, firstName, lastName, "=SUM(E"+(lastRow+1)+":AAD"+(lastRow+1)+")" ]
+  ];
+
+  var range = sheet.getRange("A"+(lastRow+1)+":D"+(lastRow+1));
+  range.setValues(values);
+  
+  var cell = sheet.getRange(lastRow+1, lastColumn);
+  cell.setValue("1");
+  
+  ui.alert("Thanks for signing in! Have fun :)");
 }
 
 /*
