@@ -97,17 +97,17 @@ function processNetId(form) {
     if (nextSheet) continue; //skip to next sheet
     
     if (netIdRow < data.length){
-      ui.alert("At "+netIdRow+" You have "+data[netIdRow-1][3]+" credits");
+      //ui.alert("At "+netIdRow+" You have "+data[netIdRow-1][3]+" credits");
       
       if (data[netIdRow-1][3] >= creditThresh-1 && sheetNum > 1){//non-member meet credit requirement, raise to member
-        ui.alert(data[netIdRow-1][0]+" becoming a member! row: "+netIdRow+" col: "+lastColumn);
+        //ui.alert(data[netIdRow-1][0]+" becoming a member! row: "+netIdRow+" col: "+lastColumn);
         
         //have to tally the member first
         sheet.getRange(netIdRow, lastColumn).setValue("1");
         
         var row = sheet.getRange(netIdRow, 1, 1, lastColumn);
         
-        ui.alert("getting new row");
+        //ui.alert("getting new row");
         var memberSheet = sheets[1];
         data = memberSheet.getDataRange().getValues();
         //ui.alert("last: "+data[lastRow-1][0]+" "+data[lastRow-1][1]+" "+data[lastRow-1][2]);
@@ -155,7 +155,7 @@ function processNetId(form) {
       If it did, relocate row to sheet 1
       */     
       //ui.alert("At "+netIdRow+" = "+data[netIdRow][0]);      
-      //ui.alert("Thanks for signing in! Have fun :)");
+      ui.alert("Thanks for signing in! Have fun :)");
       break;
       //ui.alert(netIdRow+" out of "+data.length+" with last column "+lastColumn);
       
