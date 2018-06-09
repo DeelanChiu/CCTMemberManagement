@@ -56,7 +56,7 @@ function processNetId(form) {
   
   var sheets = SpreadsheetApp.getActiveSpreadsheet().getSheets();
   
-  for (var sheetNum = sheets.length-1; sheetNum >= 0; sheetNum--){
+  for (var sheetNum = 0; sheetNum < sheets.length; sheetNum++){
     // This logs the value in the very last cell of this sheet
     var sheet = sheets[sheetNum];
     var lastRow = sheet.getLastRow();
