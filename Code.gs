@@ -102,6 +102,8 @@ function processNetId(form) {
       if (data[netIdRow-1][3] >= creditThresh-1 && sheetNum > 1){//non-member meet credit requirement, raise to member
         //ui.alert(data[netIdRow-1][0]+" becoming a member! row: "+netIdRow+" col: "+lastColumn);
         
+		var firstName = data[netIdRow-1][1];
+		
         //have to tally the member first
         sheet.getRange(netIdRow, lastColumn).setValue("1");
         
@@ -146,7 +148,7 @@ function processNetId(form) {
 		//send email to new member
         var emailAddr = netId+"@cornell.edu";
         var emailSubj = "[CCT] Membership!";
-        var emailBody = "Congrats on becoming a member! \n Prototype mailing system";
+        var emailBody = "Hello "+firstName+",\nCongrats on becoming a member! \nPrototype mailing system";
         
       } else {
         
