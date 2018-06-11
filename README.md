@@ -11,4 +11,5 @@ This script runs on the Google Sheets that keep track of the members' attendance
 * If there is a match:
 	* In the same row of the user's information in the sheets, the program tallies the user's attendance for the current event.
 	* If the user has reached 5 credits, the program removes the person's information from the non-member sheet and copies it to a new row on the member sheet in alphabetical order.
+	* After a new member's information has been copied over to the member sheet, the program automatically sends a notification email to the member.
 * After the above processing has finished, the program pops up a final dialog box saying the user's attendance is taken.	

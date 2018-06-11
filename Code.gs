@@ -142,6 +142,11 @@ function processNetId(form) {
 
         //delete this row in the original sheet
         sheet.deleteRow(netIdRow+1);
+		
+		//send email to new member
+        var emailAddr = netId+"@cornell.edu";
+        var emailSubj = "[CCT] Membership!";
+        var emailBody = "Congrats on becoming a member! \n Prototype mailing system";
         
       } else {
         
